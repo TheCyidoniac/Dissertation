@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Waypoint : MonoBehaviour {
 
-	public List<Waypoint> neighbours;
+	public List<Waypoint> listWaypoint;
 
 	// Use this for initialization
 	void Start () {
