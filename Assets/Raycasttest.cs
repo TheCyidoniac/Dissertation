@@ -54,7 +54,6 @@ public class Raycasttest : MonoBehaviour {
 			for(int i = 0; i <= currentNode.waypoint.listWaypoint.Count; i++){
 				for(int z = 0; z < closedList.Count; z++)
 				{
-					//if(closedList[z].waypoint.listWaypoint.Contains(currentNode.waypoint[i])){
 					if(closedList[z].waypoint.listWaypoint.Contains(currentNode.waypoint.listWaypoint[i])){
 						i++;
 						Debug.Log("skipped");
@@ -65,6 +64,11 @@ public class Raycasttest : MonoBehaviour {
 						openList.Add(new Node(currentNode.waypoint.listWaypoint[i], currentNode, Gcost, Hcost));
 					} 
 				}
+				for(int y = 0; y < openList.Count; y++)
+					if(openList[y].waypoint.listWaypoint.Contains(currentNode.waypoint.listWaypoint[i])){
+						if(openList[y].gCost < currentNode.waypoint.listWaypoint[i]
+				}
+
 			}
 		}
 
