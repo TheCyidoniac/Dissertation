@@ -16,9 +16,9 @@ public class Node{
 	}
 
 	public Node(Waypoint _waypoint, Node _parent, float _gCost, float _hCost){
-		_waypoint = waypoint;
-		_parent = parent;
-		_gCost = gCost;
-		_hCost = hCost;
+		waypoint = _waypoint;
+		parent = _parent;
+		gCost = _gCost;
+		hCost = _hCost;
 	}
 }

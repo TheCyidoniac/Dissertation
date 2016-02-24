@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public class Raycasttest : MonoBehaviour {
 	public Waypoint[] objects;
 
+
 	Ray ray;
 	RaycastHit hit;
-	Node StartNode;
 	Node EndNode;
 	Node[] listNode = new Node[8];
 
@@ -38,16 +38,18 @@ public class Raycasttest : MonoBehaviour {
 		}
 	}
 
-	void aStar (Node start, Node end) {
+	public void aStar (Node start, Node end) {
 		List<Node> openList = new List<Node>();
 		List<Node> closedList = new List<Node>();
+		List<Node> path = new List<Node> ();
 		Node currentNode = new Node (start.waypoint, null, 0, Vector3.Distance (start.waypoint.transform.position, end.waypoint.transform.position));
 
 		openList.Add (currentNode);
 
-		while(currentNode != end || openList != null){
+		while(currentNode != end || openList.Count != 0){
 			for(int y = 0; y <= openList.Count; y++){
 				if(openList[y].fCost < currentNode.fCost || (openList[y].fCost == currentNode.fCost && openList[y].hCost < currentNode.hCost)){
+					currentNode = openList[y];
 					closedList.Add(openList[y]);
 				}
 			}
@@ -55,19 +57,24 @@ public class Raycasttest : MonoBehaviour {
 				for(int z = 0; z < closedList.Count; z++)
 				{
 					if(closedList[z].waypoint.listWaypoint.Contains(currentNode.waypoint.listWaypoint[i])){
-						i++;
 						Debug.Log("skipped");
+						continue;
 						}
 					else{
-						float Gcost = Vector3.Distance(StartNode.waypoint.transform.position, currentNode.waypoint.listWaypoint[i].transform.position);
+						float Gcost = Vector3.Distance(currentNode.waypoint.transform.position, currentNode.waypoint.listWaypoint[i].transform.position);
 						float Hcost = Vector3.Distance(currentNode.waypoint.listWaypoint[i].transform.position, end.waypoint.transform.position);
 						openList.Add(new Node(currentNode.waypoint.listWaypoint[i], currentNode, Gcost, Hcost));
 					} 
 				}
 				for(int y = 0; y < openList.Count; y++)
 					if(openList[y].waypoint.listWaypoint.Contains(currentNode.waypoint.listWaypoint[i])){
-						if(openList[y].gCost < currentNode.waypoint.listWaypoint[i]
+						if(openList[y].gCost < currentNode.gCost){
+						openList[y].parent = currentNode;
+					}
 				}
+
+				path.Add(currentNode);
+				Debug.Log(path);
 
 			}
 		}
