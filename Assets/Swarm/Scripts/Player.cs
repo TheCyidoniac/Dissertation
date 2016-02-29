@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
 
 		transform.position = tempPos;
 	}
-	
+
 	void Update(){
 		movement ();
 	}
