@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
 	public GameObject bullet;
 
-	GameObject Bullet = (GameObject)Instantiate (Resources.Load ("Bullet"));
+	GameObject Bullet;
 	
 	public float Speed = 0.2f;
 	public int Health = 100;
@@ -41,6 +41,7 @@ public class Player : MonoBehaviour {
 
 
 	void Start(){
+		Bullet = (GameObject)Instantiate (Resources.Load ("Bullet"));
 	}
 
 	void Update(){
