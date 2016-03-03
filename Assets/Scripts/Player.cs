@@ -5,21 +5,23 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
 
 	public GameObject bullet;
-
-	GameObject Bullet;
-	
 	public float Speed = 0.2f;
 	public int Health = 100;
 	public float bulletSpeed = 20.0f;
+
 	Vector3 tempBulPos = new Vector3();
+	GameObject Bullet;
 
 	void movement (){
 		Vector3 tempPos = transform.position;
 
 		if (Input.GetButton ("Forward")) {
-			tempPos += (-transform.forward * Speed) * Time.deltaTime;
+			tempPos -= (transform.forward * Speed) * Time.deltaTime;
 		}
 
+		if (Input.GetButton ("Backward")) {
+			tempPos +=(transform.forward * Speed) * Time.deltaTime;
+		}
 		transform.position = tempPos;
 	}
 
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour {
 
 
 	void Start(){
-		Bullet = (GameObject)Instantiate (Resources.Load ("Bullet"));
+		Bullet = (GameObject) (Resources.Load ("Bullet"));
 	}
 
 	void Update(){

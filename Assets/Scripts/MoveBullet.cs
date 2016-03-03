@@ -6,11 +6,13 @@ public class MoveBullet : MonoBehaviour {
 	int bulletSpeed = 20;
 	Vector3 character;
 
+
 	// Use this for initialization
 	void Start () {
 		character = GameObject.FindGameObjectWithTag ("Player").transform.position;
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		float distance = Vector3.Distance (gameObject.transform.position, character);
@@ -20,5 +22,6 @@ public class MoveBullet : MonoBehaviour {
 		if (distance > 30) {
 			Destroy(gameObject);
 		}
+
 	}
 }

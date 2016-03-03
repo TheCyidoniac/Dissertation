@@ -4,6 +4,10 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	float movementSpeed = 1.5f;
+	GameObject player = GameObject.Find("Player");
+	int damageTaken;
+
+	public int health = 50;
 
 	void lookatPlayer(){
 		Vector3 character = GameObject.FindGameObjectWithTag ("Player").transform.position;
@@ -20,12 +24,24 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		Weapon playerWep = player.GetComponent<Weapon>();
+		Debug.Log (damageTaken);
+		damageTaken = playerWep.damage;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		lookatPlayer ();
 		chasePlayer ();
+	}
+
+	
+	void OnTriggerEnter(Collider col){
+		Debug.Log (col);
+		health -= damageTaken;
+		Debug.Log (health);
+		if (health <= 0) {
+			Destroy (this.gameObject);
+		}
 	}
 }

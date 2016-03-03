@@ -3,25 +3,32 @@ using System.Collections;
 
 public class Spawning : MonoBehaviour {
 
+	float time = 5;
+
 	GameObject enemy;
 	public int maxSpawn = 5;
 	int currentSpawned = 0;
 
 	// Use this for initialization
 	void Start () {
-		enemy = (GameObject)Instantiate (Resources.Load ("Enemy"));
+		enemy = (GameObject)(Resources.Load ("Enemy"));
+		Instantiate (enemy);
 	}
 
 	void spawnEnemies(){
-		float distance = Vector3.Distance (enemy.transform.position, gameObject.transform.position); 
-		if (currentSpawned < maxSpawn && distance > 5){
+		if ((currentSpawned < maxSpawn) && (time < 0)){
+			enemy.transform.position = gameObject.transform.position;
 			Instantiate(enemy);
 			currentSpawned += 1;
+			time = 5;
 		}
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if(currentSpawned <= maxSpawn){
+			time -= Time.deltaTime;
+		}
 		spawnEnemies ();
 	}
 }
