@@ -3,16 +3,16 @@ using System.Collections;
 
 public class Spawning : MonoBehaviour {
 
-	float time = 5;
+	public float time = 5;
+	public int maxSpawn = 5;
+	public bool Finished = false;
+	public int currentSpawned = 0;
 
 	GameObject enemy;
-	public int maxSpawn = 5;
-	int currentSpawned = 0;
 
 	// Use this for initialization
 	void Start () {
 		enemy = (GameObject)(Resources.Load ("Enemy"));
-		Instantiate (enemy);
 	}
 
 	void spawnEnemies(){
@@ -20,7 +20,11 @@ public class Spawning : MonoBehaviour {
 			enemy.transform.position = gameObject.transform.position;
 			Instantiate(enemy);
 			currentSpawned += 1;
+			Debug.Log(currentSpawned);
 			time = 5;
+		}
+		if (currentSpawned == maxSpawn) {
+			Finished = true;
 		}
 	}
 

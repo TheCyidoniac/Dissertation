@@ -4,8 +4,8 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	float movementSpeed = 1.5f;
-	GameObject player = GameObject.Find("Player");
 	int damageTaken;
+	Weapon playerWep;
 
 	public int health = 50;
 
@@ -24,8 +24,8 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Weapon playerWep = player.GetComponent<Weapon>();
-		Debug.Log (damageTaken);
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		playerWep = player.GetComponent<Weapon>();
 		damageTaken = playerWep.damage;
 	}
 	
@@ -33,8 +33,8 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		lookatPlayer ();
 		chasePlayer ();
+		Debug.Log (damageTaken);
 	}
-
 	
 	void OnTriggerEnter(Collider col){
 		Debug.Log (col);
