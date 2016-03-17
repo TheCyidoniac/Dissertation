@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour {
 	float movementSpeed = 1.5f;
 	int damageTaken;
 	Weapon playerWep;
+	GameRounds spawnEnemy;
 
 	public int health = 50;
 
@@ -33,15 +34,13 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		lookatPlayer ();
 		chasePlayer ();
-		Debug.Log (damageTaken);
 	}
 	
 	void OnTriggerEnter(Collider col){
-		Debug.Log (col);
 		health -= damageTaken;
-		Debug.Log (health);
 		if (health <= 0) {
 			Destroy (this.gameObject);
+			spawnEnemy.SpawnCounters
 		}
 	}
 }

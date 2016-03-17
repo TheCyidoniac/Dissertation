@@ -13,6 +13,8 @@ public class Spawning : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		enemy = (GameObject)(Resources.Load ("Enemy"));
+		Instantiate(enemy);
+		currentSpawned += 1;
 	}
 
 	void spawnEnemies(){
@@ -20,11 +22,13 @@ public class Spawning : MonoBehaviour {
 			enemy.transform.position = gameObject.transform.position;
 			Instantiate(enemy);
 			currentSpawned += 1;
-			Debug.Log(currentSpawned);
+			Debug.Log(maxSpawn);
 			time = 5;
 		}
 		if (currentSpawned == maxSpawn) {
-			Finished = true;
+			if(currentSpawned == 0){
+				Finished = true;
+			}
 		}
 	}
 
