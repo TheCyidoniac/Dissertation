@@ -3,12 +3,26 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+	public GameObject spawnPoint;
+	public int health = 50;
+	
 	float movementSpeed = 1.5f;
 	int damageTaken;
 	Weapon playerWep;
-	GameRounds spawnEnemy;
+	Spawning spawnEnemy;
 
-	public int health = 50;
+	// Use this for initialization
+	void Start () {
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		playerWep = player.GetComponent<Weapon>();
+		damageTaken = playerWep.damage;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		lookatPlayer ();
+		chasePlayer ();
+	}
 
 	void lookatPlayer(){
 		Vector3 character = GameObject.FindGameObjectWithTag ("Player").transform.position;
@@ -23,24 +37,12 @@ public class Enemy : MonoBehaviour {
 		transform.position = Vector3.MoveTowards (transform.position, character, step);
 	}
 
-	// Use this for initialization
-	void Start () {
-		GameObject player = GameObject.FindGameObjectWithTag("Player");
-		playerWep = player.GetComponent<Weapon>();
-		damageTaken = playerWep.damage;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		lookatPlayer ();
-		chasePlayer ();
-	}
 	
 	void OnTriggerEnter(Collider col){
-		health -= damageTaken;
+			health -= damageTaken;
 		if (health <= 0) {
 			Destroy (this.gameObject);
-			spawnEnemy.SpawnCounters
+			spawnPoint.GetComponent<Spawning>().currentSpawned -= 1;
 		}
 	}
 }
