@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Spawning : MonoBehaviour {
 
@@ -8,10 +9,11 @@ public class Spawning : MonoBehaviour {
 	public bool Finished = false;
 	public int currentSpawned = 0;
 	public GameObject spawnPoint;
+	public bool stopSpawn = false;
+	public List<GameObject> currentEnemies =  new List<GameObject> ();
 
 	Enemy Help;
 	GameObject enemy;
-	bool stopSpawn = false;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +27,7 @@ public class Spawning : MonoBehaviour {
 			Help = enemy.GetComponent<Enemy>();
 			Help.spawnPoint = gameObject;
 			Instantiate(enemy);
+			currentEnemies.Add(this.gameObject);
 			currentSpawned += 1;
 			time = 5;
 		}

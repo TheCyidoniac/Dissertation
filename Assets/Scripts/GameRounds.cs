@@ -30,6 +30,10 @@ public class GameRounds : MonoBehaviour {
 		}
 	}
 
+	void Awake (){
+		Application.targetFrameRate = 60;
+	}
+
 	void updateRound(){
 		if (currentRound == 0) {
 			time -= Time.deltaTime;

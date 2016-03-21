@@ -6,11 +6,15 @@ public class Player : MonoBehaviour {
 
 	public GameObject bullet;
 	public float Speed = 0.2f;
-	public int Health = 100;
+	public int Health = 3;
 	public float bulletSpeed = 20.0f;
+	
+
+	Spawning roundReset;
+	Enemy killEnemies;
 
 	Vector3 tempBulPos = new Vector3();
-	GameObject Bullet;
+	Vector3 startPosition;
 
 	void movement (){
 		Vector3 tempPos = transform.position;
@@ -41,10 +45,26 @@ public class Player : MonoBehaviour {
 
 	}
 
-
 	void Start(){
-		Bullet = (GameObject) (Resources.Load ("Bullet"));
+		startPosition = gameObject.transform.position;
 	}
+
+	void OnDeath(){
+		if (Health > 0) {
+			gameObject.transform.position = startPosition;
+			roundReset.currentSpawned = 0;
+			roundReset.Finished = false;
+			roundReset.stopSpawn = false;
+			killEnemies.playerDied = true;
+			roundReset.time = 5.0f;
+			for(int i = 0; i < roundReset.currentEnemies.Count; i++){
+				Debug.Log("Got Here");
+				Destroy(roundReset.currentEnemies[i]);
+			}
+		}
+		Debug.Log ("DEAD!");
+	}
+
 
 	void Update(){
 		movement ();
@@ -52,6 +72,12 @@ public class Player : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire1")) {
 			onShoot();
 		}
+	}
 
+	void OnTriggerEnter(Collider col){
+		Debug.Log (col);
+		Health -= 1;
+		OnDeath();
+		Debug.Log (Health);
 	}
 }

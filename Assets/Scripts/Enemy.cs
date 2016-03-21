@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour {
 
 	public GameObject spawnPoint;
 	public int health = 50;
+	public bool playerDied = false;
 	
 	float movementSpeed = 1.5f;
 	int damageTaken;
@@ -22,6 +23,9 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		lookatPlayer ();
 		chasePlayer ();
+		if (playerDied == true) {
+			Destroy(this.gameObject);
+		}
 	}
 
 	void lookatPlayer(){
